@@ -1,4 +1,4 @@
-package easy
+package task58
 
 // 58. Length of Last Word
 

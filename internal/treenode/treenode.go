@@ -1,6 +1,8 @@
 package treenode
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type TreeNode struct {
 	Val   int
@@ -18,8 +20,7 @@ func NewWithVal(x int) *TreeNode {
 	}
 }
 
-// Метод для заполнения дерева из входного массива
-func FillTree(arr []int) *TreeNode {
+func FillTree(arr []interface{}) *TreeNode {
 	if len(arr) == 0 {
 		return nil
 	}
@@ -29,9 +30,12 @@ func FillTree(arr []int) *TreeNode {
 	return root
 }
 
-func fillTreeHelper(arr []int, root *TreeNode, i int) *TreeNode {
+func fillTreeHelper(arr []interface{}, root *TreeNode, i int) *TreeNode {
 	if i < len(arr) {
-		temp := &TreeNode{Val: arr[i]}
+		if arr[i] == nil {
+			return nil
+		}
+		temp := &TreeNode{Val: arr[i].(int)}
 		root = temp
 
 		root.Left = fillTreeHelper(arr, root.Left, 2*i+1)
@@ -40,7 +44,6 @@ func fillTreeHelper(arr []int, root *TreeNode, i int) *TreeNode {
 	return root
 }
 
-// Вспомогательная функция для обхода дерева и вывода значений
 func printInOrder(root *TreeNode) {
 	if root != nil {
 		printInOrder(root.Left)
